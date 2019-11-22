@@ -27,14 +27,15 @@
 */
 
 
-let frames = 1
+let frames = 0
 let total = 0
 let strike = false
 let spare = false
 let firstThrow = false
+let board = []
 
 function score(num) {
-  if (frames === 1) {
+  if (frames === 0) {
     firstFrame(num)
     return
   }
@@ -50,10 +51,9 @@ function score(num) {
     setFirstThrow(num)
   }
 
-  console.log("current score is: ", total, "\ncurrent frame is: ", frames)
 
-
-  if (frames === 11) {
+  debugger
+  if (frames === 10) {
     if (firstThrow && strike) {
       total += 2 * (firstThrow + num)
     } else if (strike) {
@@ -74,7 +74,7 @@ function score(num) {
 function firstFrame(num) {
   if (num === 10) {
     strike = true
-    total += num
+    board[frames] = num
     frames++
   } else if (firstThrow) {
     addThrowsToTotal(num)
@@ -93,6 +93,7 @@ function addThrowsToTotal(num) {
   if (subtotal === 10) {
     spare = true
   }
+  board[frames] = subtotal
   firstThrow = false
   frames++
 }
